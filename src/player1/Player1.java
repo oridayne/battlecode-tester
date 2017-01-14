@@ -1,7 +1,7 @@
-package testerbot1;
+package player1;
 import battlecode.common.*;
 
-public strictfp class RobotPlayer {
+public strictfp class Player1 {
     static RobotController rc;
 
     /**
@@ -81,9 +81,11 @@ public strictfp class RobotPlayer {
                 int xPos = rc.readBroadcast(0);
                 int yPos = rc.readBroadcast(1);
                 MapLocation archonLoc = new MapLocation(xPos,yPos);
-
+                TreeInfo[] tr = rc.senseNearbyTrees();
+                
                 // Generate a random direction
                 Direction dir = randomDirection();
+                // direction for making a tree
                 Direction dir2 = randomDirection();
                 
                 // Randomly attempt to build a soldier or lumberjack in this direction
@@ -94,9 +96,8 @@ public strictfp class RobotPlayer {
                 }
                 
                 // If we can build a tree, we're building a tree!
-                if (rc.canPlantTree(dir2)){
+                if (rc.canPlantTree(dir2)&& Math.random() < .03){
                 	rc.plantTree(dir2);
-                	
                 }
                 // Move randomly
                 tryMove(randomDirection());
@@ -281,4 +282,6 @@ public strictfp class RobotPlayer {
 
         return (perpendicularDist <= rc.getType().bodyRadius);
     }
+
+    
 }
